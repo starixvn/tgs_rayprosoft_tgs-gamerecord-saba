@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Tgs.GameRecord.SabaService.Core.WorkerServices;
 using Tgs.GameRecordSchedules.Client;
 using Tgs.ServiceUtility;
@@ -8,20 +9,23 @@ namespace Tgs.GameRecord.SabaService.Core.DispatchServices;
 internal class ScheduleDispatchService : ICommandService<ScheduleDispatchCommand>
 {
     private readonly GameRecordInfoOptions _gameRecordInfo;
+    private readonly ILogger<ScheduleDispatchService> _logger;
     private readonly IGetService<GameHistoryWorkerQuery, long> _service;
     private readonly IScheduleDispatch _scheduleDispatch;
     private readonly ISabaGameRecordSchedulesClient _client;
 
     public ScheduleDispatchService(
+        ILogger<ScheduleDispatchService> logger,
         IOptions<GameRecordInfoOptions> options,
         IGetService<GameHistoryWorkerQuery, long> service,
         IScheduleDispatch scheduleDispatch,
         ISabaGameRecordSchedulesClient client)
     {
         _gameRecordInfo = options.Value;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _service = service ?? throw new ArgumentNullException(nameof(service));
         _scheduleDispatch = scheduleDispatch ?? throw new ArgumentNullException(nameof(scheduleDispatch));
-        _client = client;
+        _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
     public async ValueTask ExecuteAsync(ScheduleDispatchCommand command, CancellationToken cancellationToken = default)
@@ -41,6 +45,8 @@ internal class ScheduleDispatchService : ICommandService<ScheduleDispatchCommand
                 {
                     versionKey = _gameRecordInfo.VersionKey;
                 }
+
+                _logger.LogInformation("{command.OperatorId}取得VersionKey:{versionKey}", command.OperatorId, versionKey);
                 try
                 {
                     while (true)
@@ -62,6 +68,8 @@ internal class ScheduleDispatchService : ICommandService<ScheduleDispatchCommand
                             break;
                         }
                         versionKey = tempVersionKey;
+
+                        _logger.LogInformation("{command.OperatorId}更新VersionKey:{versionKey}", command.OperatorId, versionKey);
 
                         await _client
                             .MergeAsync(
