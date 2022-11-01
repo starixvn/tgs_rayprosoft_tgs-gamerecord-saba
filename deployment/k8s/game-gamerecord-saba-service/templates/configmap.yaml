@@ -21,7 +21,7 @@ data:
       "GameRecord": {
          "GameProvidersQueryServerBaseUrl": "http://game-gameprovider-queryserver/",
          "GameInterfaceBaseUrl": "http://game-gameinterface-saba-service:9090/",
-         "GameRecordSchedulesBaseUrl": "https://game-gamerecordschedules:9090/"
+         "GameRecordSchedulesBaseUrl": "http://game-gamerecordschedules:9090/"
       }
     }
   monitor.settings.json: |
