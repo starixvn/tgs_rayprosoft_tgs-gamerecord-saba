@@ -35,20 +35,21 @@ internal class ScheduleDispatchService : ICommandService<ScheduleDispatchCommand
         {
             if (await _scheduleDispatch.LockingAsync(key: key, command: command).ConfigureAwait(false))
             {
-                var versionKey = await _client
-                                    .GetAsync(
-                                        operatorId: command.OperatorId,
-                                        cancellationToken: cancellationToken)
-                                    .ConfigureAwait(false);
-
-                if (versionKey < _gameRecordInfo.VersionKey)
-                {
-                    versionKey = _gameRecordInfo.VersionKey;
-                }
-
-                _logger.LogInformation("{command.OperatorId}取得VersionKey:{versionKey}", command.OperatorId, versionKey);
                 try
                 {
+                    var versionKey = await _client
+                                        .GetAsync(
+                                            operatorId: command.OperatorId,
+                                            cancellationToken: cancellationToken)
+                                        .ConfigureAwait(false);
+
+                    if (versionKey < _gameRecordInfo.VersionKey)
+                    {
+                        versionKey = _gameRecordInfo.VersionKey;
+                    }
+
+                    _logger.LogInformation("{command.OperatorId}取得VersionKey:{versionKey}", command.OperatorId, versionKey);
+
                     while (true)
                     {
                         var query = new GameHistoryWorkerQuery(
