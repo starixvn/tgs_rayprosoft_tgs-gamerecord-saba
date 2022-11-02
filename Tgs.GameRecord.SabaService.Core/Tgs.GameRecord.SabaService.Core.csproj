@@ -11,7 +11,7 @@
 		<PackageReference Include="Scrutor" Version="4.2.0" />
 		<PackageReference Include="StackExchange.Redis" Version="2.6.70" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
-		<PackageReference Include="Tgs.GameInterface.SabaService.Client" Version="0.0.1" />
+		<PackageReference Include="Tgs.GameInterface.SabaService.Client" Version="0.0.2" />
 		<PackageReference Include="Tgs.GameProviders.QueryServer.Client" Version="0.0.16" />
 		<PackageReference Include="Tgs.GameRecordSchedules.Client" Version="0.0.7" />
 		<PackageReference Include="Tgs.GameRounds.Client" Version="0.0.32" />
