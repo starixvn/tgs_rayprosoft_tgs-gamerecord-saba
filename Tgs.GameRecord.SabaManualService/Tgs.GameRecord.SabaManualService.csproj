@@ -9,10 +9,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' or 
-				              '$(Configuration)|$(Platform)'=='Release|AnyCPU' or
-							  '$(Configuration)|$(Platform)'=='dev|AnyCPU' or 
-							  '$(Configuration)|$(Platform)'=='staging|AnyCPU'or
-							  '$(Configuration)|$(Platform)'=='prod|AnyCPU'">
+				   '$(Configuration)|$(Platform)'=='Release|AnyCPU' or
+				   '$(Configuration)|$(Platform)'=='dev|AnyCPU' or 
+				   '$(Configuration)|$(Platform)'=='staging|AnyCPU'or
+				   '$(Configuration)|$(Platform)'=='prod|AnyCPU'">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>$(NoWarn);1591;0063</NoWarn>
 	</PropertyGroup>
@@ -21,7 +21,7 @@
 		<PackageReference Include="FluentdForward.OpenTelemetry.MessagePack" Version="0.2.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 		<PackageReference Include="OpenTelemetry.Contrib.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta2" />
-		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.3.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.3.2" />
 		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.GrpcCore" Version="1.0.0-beta.5" />

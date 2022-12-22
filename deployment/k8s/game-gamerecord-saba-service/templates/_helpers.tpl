@@ -47,10 +47,10 @@ Selector labels
 */}}
 {{- define "game-gamerecord-saba-service.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "game-gamerecord-saba-service.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 app: {{ include "game-gamerecord-saba-service.name" . }}
 tgs.kind: game
 tgs.game.kind: gamerecord
+tgs.gamerecord.kind: service
 tgs.gameprovider.kind: saba
 {{- end }}
 
