@@ -1,35 +1,59 @@
 ﻿using Microsoft.Extensions.Options;
-using Tgs.GameProviders.QueryServer.Client;
-using Tgs.GameProviders.QueryServer.Models;
+using Tgs.GameCommand.Client;
+using Tgs.GameCommand.Common;
 
 namespace Tgs.GameRecord.SabaService.Core;
 
 internal class UtensilRepository : IUtensil
 {
     private readonly GameRecordInfoOptions _gameRecordInfo;
-    private readonly IGameProvidersQueryServerClient _client;
+    private readonly IGameCommandClient _client;
 
     public UtensilRepository(
-         IOptions<GameRecordInfoOptions> options,
-        IGameProvidersQueryServerClient client)
+        IOptions<GameRecordInfoOptions> options,
+        IGameCommandClient client)
     {
         _gameRecordInfo = options.Value;
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public ValueTask<Guid?> BrandGetGameProviderConfigurationIdAsync(Guid brandId, Guid gameProviderId)
-        => _client.BrandGetGameProviderConfigurationIdAsync(brandId, gameProviderId);
+    public ValueTask<Guid?> BrandGetGameProviderConfigurationIdAsync(
+        Guid brandId,
+        Guid gameProviderId,
+        CancellationToken cancellationToken = default)
+        => _client
+        .BrandGetGameProviderConfigurationIdAsync(
+            brandId: brandId,
+            gameProviderId: gameProviderId,
+            cancellationToken: cancellationToken);
 
-    public async ValueTask<int> GetGameIdAsync(Guid gameProviderId, string gameExternalId)
-    {
-        var gameModel = await _client.GameGetAsync(gameProviderId, gameExternalId).ConfigureAwait(false);
-        return gameModel?.GameId ?? throw new Exception($"The identifier for this game does not exist.({gameExternalId})");
-    }
+    public async ValueTask<int> GetGameIdAsync(
+        Guid gameProviderId,
+        string gameExternalId,
+        CancellationToken cancellationToken = default)
+        => (await _client
+        .GameGetAsync(
+            gameProviderId: gameProviderId,
+            gameExternalId: gameExternalId,
+            cancellationToken: cancellationToken)
+        .ConfigureAwait(false))?.GameId
+        ?? throw new Exception($"The identifier for this game does not exist.({gameExternalId})");
 
-    public async ValueTask<Guid> GetGameProviderIdAsync()
-    => await _client.GameProviderGetGameProviderIdAsync(_gameRecordInfo.GameProviderCode).ConfigureAwait(false)
+
+    public async ValueTask<Guid> GetGameProviderIdAsync(
+        CancellationToken cancellationToken = default)
+    => await _client
+        .GameProviderGetGameProviderIdAsync(
+            gameProviderCode: _gameRecordInfo.GameProviderCode,
+            cancellationToken)
+        .ConfigureAwait(false)
         ?? throw new Exception($"The identifier for this game provider does not exist.({_gameRecordInfo.GameProviderCode})");
 
-    public ValueTask<PlayerModel?> GetPlayerAsync(string playerCode)
-        => _client.PlayerGetAsync(playerCode);
+    public ValueTask<PlayerInfo?> GetPlayerAsync(
+        string playerCode,
+        CancellationToken cancellationToken = default)
+        => _client
+        .PlayerGetAsync(
+            playerCode: playerCode,
+            cancellationToken: cancellationToken);
 }

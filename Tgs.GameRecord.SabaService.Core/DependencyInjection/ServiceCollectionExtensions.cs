@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using Tgs.GameCommand.Client;
 using Tgs.GameInterface.SabaService.Client;
-using Tgs.GameProviders.QueryServer.Client;
 using Tgs.GameRecord.SabaService.Core;
 using Tgs.GameRecordSchedules.Client;
 
@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         Action<RedisOptions, IServiceProvider> redisDBconfigure,
         Action<GameRecordInfoOptions, IServiceProvider> gameRecordInfoOptions,
         Action<GameInterfaceSabaClientOptions, IServiceProvider> gameInterfaceSabaClientOptions,
-        Action<GameProvidersQueryServerClientOptions, IServiceProvider> gameProvidersQueryServerClientOptions,
+        Action<GameCommandClientOptions, IServiceProvider> gameCommandClientOptions,
         Action<GameRecordSchedulesClientOptions, IServiceProvider> gameRecordSchedulesClientOptions)
         => services
             .AddOptions<RedisOptions>()
@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
                 Assembly.GetExecutingAssembly(),
                 ServiceLifetime.Transient)
             .AddGameInterfaceSabaServiceClient(gameInterfaceSabaClientOptions)
-            .AddGameProvidersQueryServerClient(gameProvidersQueryServerClientOptions)
+            .AddGameCommandClient(gameCommandClientOptions)
             .AddGameRecordSchedulesClient(gameRecordSchedulesClientOptions)
             .AddTransient<IScheduleDispatch>(sp => ActivatorUtilities.CreateInstance<ScheduleDispatch>(sp, sp.GetRequiredService<RedisConnectionManager>().Database))
             .AddTransient<IUtensil, UtensilRepository>()

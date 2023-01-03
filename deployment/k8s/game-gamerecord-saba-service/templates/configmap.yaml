@@ -1,4 +1,4 @@
-apiVersion: v1
+﻿apiVersion: v1
 kind: ConfigMap
 metadata:
   name: configmap-{{ include "game-gamerecord-saba-service.name" . }}
@@ -19,9 +19,9 @@ data:
         "Subject": "gp.gamerecord.schedule.sabatf"
       },
       "GameRecord": {
-         "GameProvidersQueryServerBaseUrl": "http://game-gameprovider-queryserver/",
-         "GameInterfaceBaseUrl": "http://game-gameinterface-saba-service:9090/",
-         "GameRecordSchedulesBaseUrl": "http://game-gamerecordschedules:9090/"
+        "GameCommandClientBaseUrl": "http://game-gamecommand/",
+        "GameInterfaceBaseUrl": "http://game-gameinterface-saba-service:9090/",
+        "GameRecordSchedulesBaseUrl": "http://game-gamerecordschedules:9090/"
       }
     }
   monitor.settings.json: |
