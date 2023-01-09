@@ -4,7 +4,7 @@ namespace Tgs.GameRecord.SabaService.Core;
 
 public interface IUtensil
 {
-    ValueTask<Guid?> BrandGetGameProviderConfigurationIdAsync(
+    ValueTask<Guid?> GetBrandGameProviderConfigurationIdAsync(
         Guid brandId,
         Guid gameProviderId,
         CancellationToken cancellationToken = default);

@@ -8,11 +8,11 @@ namespace Tgs.GameRecord.SabaService.Core.DispatchServices;
 
 internal class ScheduleDispatchService : ICommandService<ScheduleDispatchCommand>
 {
+    private readonly ISabaGameRecordSchedulesClient _client;
     private readonly GameRecordInfoOptions _gameRecordInfo;
     private readonly ILogger<ScheduleDispatchService> _logger;
-    private readonly IGetService<GameHistoryWorkerQuery, long> _service;
     private readonly IScheduleDispatch _scheduleDispatch;
-    private readonly ISabaGameRecordSchedulesClient _client;
+    private readonly IGetService<GameHistoryWorkerQuery, long> _service;
 
     public ScheduleDispatchService(
         ILogger<ScheduleDispatchService> logger,

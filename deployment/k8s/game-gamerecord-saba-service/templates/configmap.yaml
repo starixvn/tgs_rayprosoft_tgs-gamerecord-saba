@@ -8,15 +8,9 @@ data:
     {
       "GameRecordInfo": {
         "GameProviderCode": "SABATF",
+        "GameExternalId": "sports_book",
         "VersionKey": 0,
-        "LockMinute": 10,
-        "MongoDefine": "gp.gamerecord.database",
-        "MongoGlobPattern": "tgs.gp.gamerecord.database.round.sabatf",
-        "GameExternalId": "sports_book"
-      },
-      "NatsSetting": {
-        "Group": "gp.gamerecord.schedule",
-        "Subject": "gp.gamerecord.schedule.sabatf"
+        "LockMinute": 10
       },
       "GameRecord": {
         "GameCommandClientBaseUrl": "http://game-gamecommand/",
