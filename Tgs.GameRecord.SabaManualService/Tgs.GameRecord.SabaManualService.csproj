@@ -8,11 +8,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' or 
-				   '$(Configuration)|$(Platform)'=='Release|AnyCPU' or
-				   '$(Configuration)|$(Platform)'=='dev|AnyCPU' or 
-				   '$(Configuration)|$(Platform)'=='staging|AnyCPU'or
-				   '$(Configuration)|$(Platform)'=='prod|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' or &#xD;&#xA;				   '$(Configuration)|$(Platform)'=='Release|AnyCPU' or&#xD;&#xA;				   '$(Configuration)|$(Platform)'=='dev|AnyCPU' or &#xD;&#xA;				   '$(Configuration)|$(Platform)'=='staging|AnyCPU'or&#xD;&#xA;				   '$(Configuration)|$(Platform)'=='prod|AnyCPU'">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>$(NoWarn);1591;0063</NoWarn>
 	</PropertyGroup>
@@ -28,7 +24,7 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.0.0-rc9.3" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9" />
 		<PackageReference Include="ProfileViewer.OpenTelemetry.Exporter" Version="0.2.1" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="Tgs.Interceptors" Version="0.2.1" />
 	</ItemGroup>
 
