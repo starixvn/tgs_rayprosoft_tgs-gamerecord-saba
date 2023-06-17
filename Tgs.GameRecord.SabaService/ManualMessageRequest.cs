@@ -1,6 +1,6 @@
-﻿namespace Tgs.GameRecord.SabaManualService.ViewModels;
+﻿namespace Tgs.GameRecord.SabaService;
 
-public record GameRecordQueryViewModel(
+public record ManualMessageRequest(
     Uri ApiUrl,
     string OperatorId,
     string VendorId,

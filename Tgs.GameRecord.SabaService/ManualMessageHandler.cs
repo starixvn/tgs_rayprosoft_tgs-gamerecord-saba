@@ -4,7 +4,7 @@ using Tgs.GameRecord.SabaService.Core.WorkerServices;
 using Tgs.MessageQueue;
 using Tgs.ServiceUtility;
 
-namespace Tgs.GameRecord.SabaManualService;
+namespace Tgs.GameRecord.SabaService;
 
 public class ManualMessageHandler : IMessageProcessor
 {

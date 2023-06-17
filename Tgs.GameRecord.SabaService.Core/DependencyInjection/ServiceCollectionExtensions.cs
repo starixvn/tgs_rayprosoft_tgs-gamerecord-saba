@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<RedisOptions, IServiceProvider> redisDBconfigure,
         Action<GameRecordInfoOptions, IServiceProvider> gameRecordInfoOptions,
-        Action<MongoSettingOptions, IServiceProvider> mongoSettingOptions,
         Action<GameInterfaceSabaClientOptions, IServiceProvider> gameInterfaceSabaClientOptions,
         Action<GameCommandClientOptions, IServiceProvider> gameCommandClientOptions,
         Action<GameRecordSchedulesClientOptions, IServiceProvider> gameRecordSchedulesClientOptions)
@@ -23,13 +22,11 @@ public static class ServiceCollectionExtensions
             .AddOptions<GameRecordInfoOptions>()
             .Configure(gameRecordInfoOptions)
             .Services
-            .AddOptions<MongoSettingOptions>()
-            .Configure(mongoSettingOptions)
-            .Services
             .RegisterAllServiceUtilityTypes(
                 Assembly.GetExecutingAssembly(),
                 ServiceLifetime.Transient)
             .AddMemoryCache()
+            .AddGameRoundsWorkClient()
             .AddSingleton<RedisConnectionManager>()
             .AddGameInterfaceSabaServiceClient(gameInterfaceSabaClientOptions)
             .AddGameCommandClient(gameCommandClientOptions)
