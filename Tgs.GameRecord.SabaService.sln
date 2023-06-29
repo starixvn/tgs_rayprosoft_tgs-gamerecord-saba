@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{B2751747-D25A-48ED-ADC7-B9C93525A597}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		CodeMaid.config = CodeMaid.config
-		nuget.config = nuget.config
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameRecord.SabaService", "Tgs.GameRecord.SabaService\Tgs.GameRecord.SabaService.csproj", "{319EE5E9-CABA-4E25-BD73-6B3B36BBE178}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameRecord.SabaService.Core", "Tgs.GameRecord.SabaService.Core\Tgs.GameRecord.SabaService.Core.csproj", "{47F733E2-CDCD-458A-BC96-4C74DB859426}"
