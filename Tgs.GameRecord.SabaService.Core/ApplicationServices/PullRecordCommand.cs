@@ -2,4 +2,4 @@
 
 namespace Tgs.GameRecord.SabaService.Core.ApplicationServices;
 
-public record GamePullRecordCommand(IEnumerable<GameHistory> GameHistories);
+public record PullRecordCommand(IEnumerable<GameHistory> GameHistories);

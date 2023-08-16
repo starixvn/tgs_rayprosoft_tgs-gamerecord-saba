@@ -7,11 +7,11 @@ namespace Tgs.GameRecord.SabaService.Core.WorkerServices;
 internal class GameHistoryWorkerGetService : IGetService<GameHistoryWorkerQuery, long>
 {
     private readonly IGameInterfaceSabaClient _client;
-    private readonly ICommandService<GamePullRecordCommand> _service;
+    private readonly ICommandService<PullRecordCommand> _service;
 
     public GameHistoryWorkerGetService(
         IGameInterfaceSabaClient client,
-        ICommandService<GamePullRecordCommand> service)
+        ICommandService<PullRecordCommand> service)
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
         _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -30,7 +30,7 @@ internal class GameHistoryWorkerGetService : IGetService<GameHistoryWorkerQuery,
 
         if (reply.Items.Any())
         {
-            var command = new GamePullRecordCommand(
+            var command = new PullRecordCommand(
                 GameHistories: reply.Items);
 
             await _service

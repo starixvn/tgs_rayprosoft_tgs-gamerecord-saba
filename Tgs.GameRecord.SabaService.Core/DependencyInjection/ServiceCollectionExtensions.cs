@@ -26,11 +26,10 @@ public static class ServiceCollectionExtensions
                 Assembly.GetExecutingAssembly(),
                 ServiceLifetime.Transient)
             .AddMemoryCache()
-            .AddGameRoundsWorkClient()
+            .AddGameRecordHandleClient()
             .AddSingleton<RedisConnectionManager>()
             .AddGameInterfaceSabaServiceClient(gameInterfaceSabaClientOptions)
             .AddGameCommandClient(gameCommandClientOptions)
             .AddGameRecordSchedulesClient(gameRecordSchedulesClientOptions)
-            .AddTransient<IScheduleDispatch>(sp => ActivatorUtilities.CreateInstance<ScheduleDispatch>(sp, sp.GetRequiredService<RedisConnectionManager>().Database))
-            .AddTransient<IUtensil>(sp => ActivatorUtilities.CreateInstance<UtensilRepository>(sp, TimeSpan.FromHours(1)));
+            .AddTransient<IScheduleDispatch>(sp => ActivatorUtilities.CreateInstance<ScheduleDispatch>(sp, sp.GetRequiredService<RedisConnectionManager>().Database));
 }

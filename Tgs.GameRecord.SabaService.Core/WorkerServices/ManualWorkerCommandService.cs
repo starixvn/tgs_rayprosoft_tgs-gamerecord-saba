@@ -7,11 +7,11 @@ namespace Tgs.GameRecord.SabaService.Core.WorkerServices;
 internal class ManualWorkerCommandService : ICommandService<ManualWorkerCommand>
 {
     private readonly IGameInterfaceSabaClient _client;
-    private readonly ICommandService<GamePullRecordCommand> _service;
+    private readonly ICommandService<PullRecordCommand> _service;
 
     public ManualWorkerCommandService(
         IGameInterfaceSabaClient client,
-        ICommandService<GamePullRecordCommand> service)
+        ICommandService<PullRecordCommand> service)
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
         _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -33,7 +33,7 @@ internal class ManualWorkerCommandService : ICommandService<ManualWorkerCommand>
 
         if (gameHistories.Any())
         {
-            var gamePullRecordCommand = new GamePullRecordCommand(
+            var gamePullRecordCommand = new PullRecordCommand(
                 GameHistories: gameHistories);
 
             await _service
@@ -57,7 +57,7 @@ internal class ManualWorkerCommandService : ICommandService<ManualWorkerCommand>
 
         if (gameHistories.Any())
         {
-            var gamePullRecordCommand = new GamePullRecordCommand(
+            var gamePullRecordCommand = new PullRecordCommand(
                 GameHistories: gameHistories);
 
             await _service

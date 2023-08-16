@@ -3,20 +3,20 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameRecord.SabaService.Core.ApplicationServices;
 
-internal class GamePullRecordCommandService : ICommandService<GamePullRecordCommand>
+internal class PullRecordCommandService : ICommandService<PullRecordCommand>
 {
-    private readonly ILogger<GamePullRecordCommandService> _logger;
-    private readonly ICommandService<ScheduleHandleRecordCommand> _service;
+    private readonly ILogger<PullRecordCommandService> _logger;
+    private readonly ICommandService<HandleRecordCommand> _service;
 
-    public GamePullRecordCommandService(
-        ILogger<GamePullRecordCommandService> logger,
-        ICommandService<ScheduleHandleRecordCommand> service)
+    public PullRecordCommandService(
+        ILogger<PullRecordCommandService> logger,
+        ICommandService<HandleRecordCommand> service)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    public async ValueTask ExecuteAsync(GamePullRecordCommand command, CancellationToken cancellationToken = default)
+    public async ValueTask ExecuteAsync(PullRecordCommand command, CancellationToken cancellationToken = default)
     {
         foreach (var history in command.GameHistories)
         {
@@ -24,7 +24,7 @@ internal class GamePullRecordCommandService : ICommandService<GamePullRecordComm
             {
                 await _service
                 .ExecuteAsync(
-                     command: new ScheduleHandleRecordCommand(history),
+                     command: new HandleRecordCommand(history),
                      cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             }

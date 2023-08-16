@@ -2,4 +2,4 @@
 
 namespace Tgs.GameRecord.SabaService.Core.ApplicationServices;
 
-public record ScheduleHandleRecordCommand(GameHistory Record);
+public record HandleRecordCommand(GameHistory Record);
