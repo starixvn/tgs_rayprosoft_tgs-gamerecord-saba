@@ -81,8 +81,8 @@ builder.Services
              var configuration = sp.GetRequiredService<IConfiguration>();
              options.Url = configuration.GetConnectionString("Nats")!;
          })
-         .AddHandler<ScheduleMessageHandler>("gp.gamerecord.schedule.sabatf", "gp.gamerecord.schedule")
-         .AddProcessor<ManualMessageHandler>("gp.gamerecord.manual.sabatf", "gp.gamerecord.manual");
+         .AddHandler<ScheduleMessageHandler>("gp.gamerecord.schedule.sabatf", "gp.gamerecord.schedule.sabatf")
+         .AddProcessor<ManualMessageHandler>("gp.gamerecord.manual.sabatf", "gp.gamerecord.manual.sabatf");
      })
      .ClearAllExchanges()
      .AddNatsGlobPatternExchange("*");
