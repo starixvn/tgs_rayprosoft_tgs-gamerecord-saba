@@ -1,8 +1,8 @@
 variables:
-  ImageName: pgtgs/game-gamerecord-saba-service
-  TgsSettingKey: game-gamerecord-saba-service
-  HelmTemplateFolderName: game-gamerecord-saba-service
-  BuildCacheKey: Tgs.GameRecord.SabaService.$CI_PIPELINE_ID
+  ImageName: pgtgs/game-gamerecord-saba
+  TgsSettingKey: game-gamerecord-saba
+  HelmTemplateFolderName: game-gamerecord-saba
+  BuildCacheKey: Tgs.GameRecord.Saba.$CI_PIPELINE_ID
 
 default:
   before_script:
@@ -59,7 +59,7 @@ push-docker-image:
     untracked: true   
     policy: pull
   script:
-    - dotnet build "Tgs.GameRecord.SabaService/Tgs.GameRecord.SabaService.csproj" -c $BuildConfiguration -t:ContainerBuild -p:DockerfileTag="$ImageName:$Tag" --no-restore
+    - dotnet build "Tgs.GameRecord.Saba/Tgs.GameRecord.Saba.csproj" -c $BuildConfiguration -t:ContainerBuild -p:DockerfileTag="$ImageName:$Tag" --no-restore
     - docker push $ImageName:$Tag
 
 push-k8s-template:
