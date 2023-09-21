@@ -47,6 +47,7 @@ public class HandleRecordCommandServiceUnitTest
         await service.ExecuteAsync(command: command);
 
         await fakeClient
+            .Received(1)
             .MessageAsync(
             gameProviderCode: Arg.Is(gameRecordInfo.Value.GameProviderCode),
             playerCode: Arg.Is(command.Record.PlayerCode),
@@ -109,6 +110,7 @@ public class HandleRecordCommandServiceUnitTest
         await service.ExecuteAsync(command: command);
 
         await fakeClient
+            .Received(1)
             .MessageAsync(
             gameProviderCode: Arg.Is(gameRecordInfo.Value.GameProviderCode),
             playerCode: Arg.Is(command.Record.PlayerCode),
@@ -155,7 +157,7 @@ public class HandleRecordCommandServiceUnitTest
             IsClosed = false,
             Status = GameHistoryStatus.Running,
             ExternalCreatedOn = DateTimeOffset.UtcNow.AddHours(-1).ToTimestamp(),
-            ExternalClosedOn = DateTimeOffset.UtcNow.ToTimestamp(),
+            ExternalClosedOn = DateTimeOffset.UnixEpoch.ToTimestamp(),
             Bet = 10m,
             ValidBet = 10m,
             PlayerWinLoss = 0m,
@@ -171,6 +173,7 @@ public class HandleRecordCommandServiceUnitTest
         await service.ExecuteAsync(command: command);
 
         await fakeClient
+            .Received(1)
             .MessageAsync(
             gameProviderCode: Arg.Is(gameRecordInfo.Value.GameProviderCode),
             playerCode: Arg.Is(command.Record.PlayerCode),
@@ -233,6 +236,7 @@ public class HandleRecordCommandServiceUnitTest
         await service.ExecuteAsync(command: command);
 
         await fakeClient
+            .Received(1)
             .MessageAsync(
             gameProviderCode: Arg.Is(gameRecordInfo.Value.GameProviderCode),
             playerCode: Arg.Is(command.Record.PlayerCode),

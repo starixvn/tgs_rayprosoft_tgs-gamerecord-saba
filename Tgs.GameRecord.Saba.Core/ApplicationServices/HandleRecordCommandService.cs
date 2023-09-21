@@ -38,21 +38,18 @@ internal class HandleRecordCommandService : ICommandService<HandleRecordCommand>
             turnover = command.Record.Turnover.ToDecimal().GetValueOrDefault(0);
             playerWinLoss = command.Record.PlayerWinLoss.ToDecimal().GetValueOrDefault(0);
             cashoutState = (command.Record.IsCashout) ? CashoutStates.Cashout : CashoutStates.None;
-            wagerState =
-               (command.Record.IsClosed && command.Record.IsCashout)
-               ? (playerWinLoss > 0) ? WagerStates.Win : WagerStates.Lose
-               : command.Record.Status switch
-               {
-                   GameHistoryStatus.Won => WagerStates.Win,
-                   GameHistoryStatus.Lose => WagerStates.Lose,
-                   GameHistoryStatus.Draw => WagerStates.Draw,
-                   GameHistoryStatus.HalfWon => WagerStates.HalfWin,
-                   GameHistoryStatus.HalfLose => WagerStates.HalfLose,
-                   GameHistoryStatus.Void => WagerStates.Void,
-                   GameHistoryStatus.Refund => WagerStates.Refund,
-                   GameHistoryStatus.Reject => WagerStates.Reject,
-                   _ => (command.Record.PlayerWinLoss > 0) ? WagerStates.Win : WagerStates.Lose
-               };
+            wagerState = command.Record.Status switch
+            {
+                GameHistoryStatus.Won => WagerStates.Win,
+                GameHistoryStatus.Lose => WagerStates.Lose,
+                GameHistoryStatus.Draw => WagerStates.Draw,
+                GameHistoryStatus.HalfWon => WagerStates.HalfWin,
+                GameHistoryStatus.HalfLose => WagerStates.HalfLose,
+                GameHistoryStatus.Void => WagerStates.Void,
+                GameHistoryStatus.Refund => WagerStates.Refund,
+                GameHistoryStatus.Reject => WagerStates.Reject,
+                _ => (command.Record.PlayerWinLoss > 0) ? WagerStates.Win : WagerStates.Lose
+            };
         }
 
         return _client
