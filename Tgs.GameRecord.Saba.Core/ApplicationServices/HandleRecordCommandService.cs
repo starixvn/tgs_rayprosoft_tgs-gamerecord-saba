@@ -48,7 +48,7 @@ internal class HandleRecordCommandService : ICommandService<HandleRecordCommand>
                 GameHistoryStatus.Void => WagerStates.Void,
                 GameHistoryStatus.Refund => WagerStates.Refund,
                 GameHistoryStatus.Reject => WagerStates.Reject,
-                _ => (command.Record.PlayerWinLoss > 0) ? WagerStates.Win : WagerStates.Lose
+                _ => (playerWinLoss > 0) ? WagerStates.Win : WagerStates.Lose
             };
         }
 
