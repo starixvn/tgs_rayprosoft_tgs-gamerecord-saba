@@ -1,4 +1,6 @@
-﻿namespace Tgs.GameRecord.Saba.Core;
+﻿using Tgs.GameRecord.Saba.Core;
+
+namespace Tgs.GameRecord.Saba;
 
 public record RedisOptions
 {

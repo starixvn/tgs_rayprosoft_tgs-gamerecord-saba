@@ -2,18 +2,20 @@
 kind: ConfigMap
 metadata:
   name: configmap-{{ include "game-gamerecord-saba.name" . }}
-  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "game-gamerecord-saba.labels" . | nindent 4 }}
 data:
   appsettings.json: |
     {
       "Logging": {
-         "LogLevel": {
-          "Default": "Warning"
-          }
+        "LogLevel": {
+          "Default": "Warning",
+          "Tgs.GameRecord.Saba.Messages": "Information"
+        }
       },
       "GameRecord": {
         "GameCommandClientBaseUrl": "http://game-gamecommand/",
-        "GameInterfaceBaseUrl": "http://game-gameinterface-saba-service:9090/",
+        "GameInterfaceBaseUrl": "dns:///game-gameinterface-saba-service:9090/",
         "GameRecordSchedulesBaseUrl": "http://game-gamerecordschedules:9090/"
       }
     }

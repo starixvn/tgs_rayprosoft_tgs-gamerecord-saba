@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using StackExchange.Redis;
+using Tgs.GameRecord.Saba.Core;
+using Tgs.GameRecord.Saba;
 
-namespace Tgs.GameRecord.Saba.Core;
+namespace Tgs.GameRecord.Saba;
 
 internal class RedisConnectionManager : IDisposable
 {

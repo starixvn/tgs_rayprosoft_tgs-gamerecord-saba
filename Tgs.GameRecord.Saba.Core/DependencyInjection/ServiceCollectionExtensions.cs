@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using StackExchange.Redis;
 using Tgs.GameCommand.Client;
 using Tgs.GameInterface.SabaService.Client;
 using Tgs.GameRecord.Saba.Core;
@@ -10,26 +11,19 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddGameRecordCore(
         this IServiceCollection services,
-        Action<RedisOptions, IServiceProvider> redisDBconfigure,
-        Action<GameRecordInfoOptions, IServiceProvider> gameRecordInfoOptions,
         Action<GameInterfaceSabaClientOptions, IServiceProvider> gameInterfaceSabaClientOptions,
         Action<GameCommandClientOptions, IServiceProvider> gameCommandClientOptions,
-        Action<GameRecordSchedulesClientOptions, IServiceProvider> gameRecordSchedulesClientOptions)
+        Action<GameRecordSchedulesClientOptions, IServiceProvider> gameRecordSchedulesClientOptions,
+        Func<IServiceProvider, IDatabase> redisDatabaseResolver)
         => services
-        .AddOptions<RedisOptions>()
-        .Configure(redisDBconfigure)
-        .Services
-        .AddOptions<GameRecordInfoOptions>()
-        .Configure(gameRecordInfoOptions)
-        .Services
         .RegisterAllServiceUtilityTypes(
             Assembly.GetExecutingAssembly(),
             ServiceLifetime.Transient)
-        .AddSingleton<RedisConnectionManager>()
         .AddGameCommandClient(gameCommandClientOptions)
         .AddGameRecordSchedulesClient(gameRecordSchedulesClientOptions)
         .AddGameInterfaceSabaServiceClient(gameInterfaceSabaClientOptions)
         .AddGameRecordHandleClient()
         .AddTransient<IHangfireUtensil, HangfireUtensil>()
-        .AddTransient<IScheduleDispatch>(sp => ActivatorUtilities.CreateInstance<ScheduleDispatch>(sp, sp.GetRequiredService<RedisConnectionManager>().Database));
+        .AddTransient<IHangfireLock>(sp => ActivatorUtilities.CreateInstance<HangfireLock>(sp, redisDatabaseResolver(sp)))
+        .AddTransient<ISchedulePullLocked>(sp => ActivatorUtilities.CreateInstance<SchedulePullLocked>(sp, redisDatabaseResolver(sp)));
 }

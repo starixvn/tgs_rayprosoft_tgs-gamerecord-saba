@@ -1,38 +1,30 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using Tgs.GameRecord.Saba.Common;
 using Tgs.ServiceUtility;
 using Valhalla.MessageQueue;
 
 namespace Tgs.GameRecord.Saba.Core.JobApplicationServices;
 
-internal class JobExecuteCommandService : ICommandService<JobExecuteCommand>
+internal class JobExecuteCommandService(
+    ILogger<JobExecuteCommandService> logger,
+    IMessageSender messageSender) : ICommandService<JobExecuteCommand>
 {
-    private readonly ILogger<JobExecuteCommandService> _logger;
-    private readonly IMessageSender _messageSender;
-
-    public JobExecuteCommandService(
-        ILogger<JobExecuteCommandService> logger,
-        IMessageSender messageSender)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _messageSender = messageSender ?? throw new ArgumentNullException(nameof(messageSender));
-    }
-
     public ValueTask ExecuteAsync(JobExecuteCommand command, CancellationToken cancellationToken = default)
     {
-        var parameters = new
+        var parameters = new SabaGameRecordScheduleMessage
         {
-            command.ApiUrl,
-            command.OperatorId,
-            command.VendorId
+            ApiUrl = command.ApiUrl,
+            OperatorId = command.OperatorId,
+            VendorId = command.VendorId
         };
 
-        _logger.LogDebug("LogOn:{logOn} Parameters:{parameters}", DateTime.Now.ToString("u"), parameters);
+        logger.LogDebug("LogOn:{logOn} Parameters:{parameters}", DateTime.Now.ToString("u"), parameters);
 
-        return _messageSender
+        return messageSender
             .PublishAsync(
-            subject: "gp.gamerecord.schedule.sabatf",
+            subject: SabaNatsConst.SchedulePublish,
             data: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(parameters)),
             cancellationToken: cancellationToken);
     }
