@@ -45,11 +45,12 @@ internal class SchedulePullRecordCommandService(
             long tempVersionKey;
             do
             {
+                tempVersionKey = versionKey;
                 var reply = await gameInterfaceSabaClient.GameHistoryAsync(
                     apiUrl: command.ApiUrl,
                     operatorId: command.OperatorId,
                     vendorId: command.VendorId,
-                    versionKey: versionKey,
+                    versionKey: tempVersionKey,
                     cancellationToken: cancellationToken)
                     .ConfigureAwait(false);
 
@@ -72,7 +73,7 @@ internal class SchedulePullRecordCommandService(
                         }
                     }
                 }
-                tempVersionKey = reply.LastVersionKey;
+                versionKey = reply.LastVersionKey;
             } while (tempVersionKey != versionKey);
 
             await sabaGameRecordSchedulesClient.MergeAsync(
