@@ -1,8 +1,6 @@
-﻿using Tgs.GameRecord.Saba.Core;
-
-namespace Tgs.GameRecord.Saba;
+﻿namespace Tgs.GameRecord.Saba;
 
 public record RedisOptions
 {
-    public string ConnectionString { get; set; } = "localhost";
+	public string ConnectionString { get; set; } = "localhost";
 }

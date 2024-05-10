@@ -10,7 +10,8 @@ data:
       "Logging": {
         "LogLevel": {
           "Default": "Warning",
-          "Tgs.GameRecord.Saba.Messages": "Information"
+          "Tgs.GameRecord.Saba.Messages": "Information",
+          "Tgs.GameRecord.Saba.Core.ApplicationServices.HandleRecordCommandService": "Information"
         }
       },
       "GameRecord": {
