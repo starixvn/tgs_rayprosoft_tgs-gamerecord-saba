@@ -10,8 +10,9 @@ data:
       "Logging": {
         "LogLevel": {
           "Default": "Warning",
-          "Grpc.Net.Client.Balancer": "Debug",
-          "Tgs.GameRecord.Saba.Messages.ManualMessageHandler": "Warning",
+          "Grpc.Net.Client.Balancer": "Warning",
+          "Grpc.Net.Client.Balancer.DnsResolver": "Debug",
+          "Tgs.GameRecord.Saba.Messages.ManualMessageHandler": "Information",
           "Tgs.GameRecord.Saba.Messages.ScheduleMessageHandler": "Warning",
           "Tgs.GameRecord.Saba.Core.ApplicationServices.HandleRecordCommandService": "Warning"
         }
