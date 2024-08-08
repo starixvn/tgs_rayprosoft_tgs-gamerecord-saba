@@ -19,8 +19,7 @@ data:
       },
       "GameRecord": {
         "GameCommandClientBaseUrl": "http://game-gamecommand/",
-        "GameInterfaceBaseUrl": "dns:///game-gameinterface-saba-service:9090/",
-        "GameRecordSchedulesBaseUrl": "http://game-gamerecordschedules:9090/"
+        "GameInterfaceClientBaseUrl": "dns:///game-gameinterface-saba-service:9090/"
       }
     }
   otel-collector-config.yaml: |
