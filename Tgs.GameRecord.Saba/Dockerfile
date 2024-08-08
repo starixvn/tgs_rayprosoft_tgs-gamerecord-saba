@@ -13,7 +13,8 @@ COPY ["nuget.config", "."]
 COPY ["Tgs.GameRecord.Saba/Tgs.GameRecord.Saba.csproj", "Tgs.GameRecord.Saba/"]
 COPY ["Tgs.GameRecord.Saba.Common/Tgs.GameRecord.Saba.Common.csproj", "Tgs.GameRecord.Saba.Common/"]
 COPY ["Tgs.GameRecord.Saba.Core/Tgs.GameRecord.Saba.Core.csproj", "Tgs.GameRecord.Saba.Core/"]
-RUN dotnet restore "./Tgs.GameRecord.Saba/./Tgs.GameRecord.Saba.csproj"
+COPY ["Tgs.GameRecord.Saba.Repositories/Tgs.GameRecord.Saba.Repositories.csproj", "Tgs.GameRecord.Saba.Repositories/"]
+RUN dotnet restore "./Tgs.GameRecord.Saba/Tgs.GameRecord.Saba.csproj"
 COPY . .
 WORKDIR "/src/Tgs.GameRecord.Saba"
 RUN dotnet build "./Tgs.GameRecord.Saba.csproj" -c $BUILD_CONFIGURATION -o /app/build

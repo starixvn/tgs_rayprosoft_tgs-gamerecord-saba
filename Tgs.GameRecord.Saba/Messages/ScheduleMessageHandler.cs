@@ -1,15 +1,15 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Tgs.GameRecord.Saba.Common;
+using Tgs.GameRecord.Saba.Core;
 using Tgs.GameRecord.Saba.Core.ApplicationServices;
-using Tgs.ServiceUtility;
 using Valhalla.MessageQueue;
 
 namespace Tgs.GameRecord.Saba.Messages;
 
 public class ScheduleMessageHandler(
 	ILogger<ScheduleMessageHandler> logger,
-	ICommandService<SchedulePullRecordCommand> service) : IMessageHandler<ReadOnlyMemory<byte>>
+	ISchedulePullRecordDispatcher dispatcher) : IMessageHandler<ReadOnlyMemory<byte>>
 {
 	public ValueTask HandleAsync(string subject, ReadOnlyMemory<byte> data, IEnumerable<MessageHeaderValue>? headerValues, CancellationToken cancellationToken = default)
 	{
@@ -17,18 +17,25 @@ public class ScheduleMessageHandler(
 		var message = JsonSerializer.Deserialize<SabaGameRecordScheduleMessage>(json)
 			?? throw new NullReferenceException("The request data resolves to a null value");
 
-		logger.LogInformation("LogOn:{logOn} Subject:{subject} Information Request:{message}",
-			DateTime.Now.ToString("o"),
-			subject,
-			message);
+		logger.LogInformation("{logInformation}",
+			JsonSerializer.Serialize(new
+			{
+				LogOn = DateTime.Now.ToString("u"),
+				Subject = subject,
+				Data = new
+				{
+					message.ApiUrl,
+					message.OperatorId,
+					message.VendorId
+				},
+				Message = "This receive message handler."
+			}));
 
-		var command = new SchedulePullRecordCommand(
-			ApiUrl: message.ApiUrl,
-			OperatorId: message.OperatorId,
-			VendorId: message.VendorId);
-
-		return service.ExecuteAsync(
-			command: command,
+		return dispatcher.PushCommandAsync(
+			command: new SchedulePullRecordCommand(
+				ApiUrl: message.ApiUrl,
+				OperatorId: message.OperatorId,
+				VendorId: message.VendorId),
 			cancellationToken: cancellationToken);
 	}
 }

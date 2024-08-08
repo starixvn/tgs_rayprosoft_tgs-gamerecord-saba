@@ -16,18 +16,6 @@ public class SabaController : ControllerBase
 	/// <param name="messageSender">The message sender.</param>
 	/// <param name="source">The source.</param>
 	/// <returns></returns>
-	/// <remarks>
-	/// <b>Example</b><br />
-	///
-	///     Post
-	///         {
-	///             "ApiUrl": "http://i1y2tsa.bw6688.com/",
-	///             "OperatorId": "Pega",
-	///             "VendorId": "lmaz5farkr",
-	///             "StartTime": "2023-08-24T18:15:00+08:00",
-	///             "EndTime": "2023-08-24T19:30:00+08:00"
-	///         }
-	/// </remarks>
 	[HttpPost("manual")]
 	public ValueTask GameRecordManualAsync(
 		[FromServices] IMessageSender messageSender,
@@ -43,16 +31,6 @@ public class SabaController : ControllerBase
 	/// <param name="messageSender">The message sender.</param>
 	/// <param name="source">The source.</param>
 	/// <returns></returns>
-	/// <remarks>
-	/// <b>Example</b><br />
-	///
-	///     Post
-	///         {
-	///             "ApiUrl": "http://i1y2tsa.bw6688.com/",
-	///             "OperatorId": "Pega",
-	///             "VendorId": "lmaz5farkr"
-	///         }
-	/// </remarks>
 	[HttpPost("schedule")]
 	public ValueTask GameRecordScheduleAsync(
 		[FromServices] IMessageSender messageSender,

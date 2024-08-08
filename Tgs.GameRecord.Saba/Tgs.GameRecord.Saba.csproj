@@ -26,13 +26,14 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.0.0-rc9.3" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
 		<PackageReference Include="Tgs.Interceptors" Version="0.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Tgs.GameRecord.Saba.Common\Tgs.GameRecord.Saba.Common.csproj" />
 	  <ProjectReference Include="..\Tgs.GameRecord.Saba.Core\Tgs.GameRecord.Saba.Core.csproj" />
+	  <ProjectReference Include="..\Tgs.GameRecord.Saba.Repositories\Tgs.GameRecord.Saba.Repositories.csproj" />
 	</ItemGroup>
 
 </Project>

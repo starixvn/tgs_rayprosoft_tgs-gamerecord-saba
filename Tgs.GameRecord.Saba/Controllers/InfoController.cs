@@ -9,11 +9,12 @@ namespace Tgs.GameRecord.Saba.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class InfoController(
-	IOptions<GameRecordInfoOptions> gameRecordInfoOptions) : ControllerBase
+public class InfoController : ControllerBase
 {
 	[HttpGet]
-	public async Task<object> GetAsync([FromServices] IWebHostEnvironment _hostingEnvironment)
+	public async Task<object> GetAsync(
+		[FromServices] IWebHostEnvironment webHostEnvironment,
+		[FromServices] IOptions<GameRecordInfoOptions> options)
 	{
 		var hostName = Dns.GetHostName();
 		var hostEntry = await Dns.GetHostEntryAsync(hostName).ConfigureAwait(false);
@@ -25,11 +26,11 @@ public class InfoController(
 			Environment.MachineName,
 			HostName = hostName,
 			HostIp = hostIp?.ToString() ?? string.Empty,
-			Environment = _hostingEnvironment.EnvironmentName,
+			Environment = webHostEnvironment.EnvironmentName,
 			OsVersion = $"{Environment.OSVersion}",
 			Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(),
 			ProcessCount = Environment.ProcessorCount,
-			GameRecordInfoOptions = gameRecordInfoOptions.Value
+			GameRecordInfoOptions = options.Value,
 		};
 	}
 }
