@@ -13,19 +13,31 @@ internal class JobExecuteCommandService(
 {
 	public ValueTask ExecuteAsync(JobExecuteCommand command, CancellationToken cancellationToken = default)
 	{
-		var parameters = new SabaGameRecordScheduleMessage
+		var message = new SabaGameRecordScheduleMessage
 		{
 			ApiUrl = command.ApiUrl,
 			OperatorId = command.OperatorId,
 			VendorId = command.VendorId
 		};
 
-		logger.LogDebug("LogOn:{logOn} Parameters:{parameters}", DateTime.Now.ToString("u"), parameters);
+		logger.LogInformation("{logInformation}",
+			JsonSerializer.Serialize(new
+			{
+				LogOn = DateTime.Now.ToString("u"),
+				Subject = SabaNatsConst.SchedulePublish,
+				Data = new
+				{
+					message.ApiUrl,
+					message.OperatorId,
+					message.VendorId
+				},
+				Message = "This message publishing handler."
+			}));
 
 		return messageSender
 			.PublishAsync(
 			subject: SabaNatsConst.SchedulePublish,
-			data: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(parameters)),
+			data: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)),
 			cancellationToken: cancellationToken);
 	}
 }

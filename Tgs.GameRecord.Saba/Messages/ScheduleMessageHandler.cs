@@ -28,7 +28,7 @@ public class ScheduleMessageHandler(
 					message.OperatorId,
 					message.VendorId
 				},
-				Message = "This receive message handler."
+				Message = "This message receiving handler."
 			}));
 
 		return dispatcher.PushCommandAsync(
