@@ -89,6 +89,13 @@ builder.Services
 		configuration.GetSection("GameRecordInfo").Bind(options);
 	})
 	.Services
+	.AddOptions<PolicySettingsOptions>()
+	.Configure((PolicySettingsOptions options, IServiceProvider sp) =>
+	{
+		var configuration = sp.GetRequiredService<IConfiguration>();
+		configuration.GetSection("PolicySettings").Bind(options);
+	})
+	.Services
 	.AddMemoryCache()
 	.AddSingleton<RedisConnectionManager>()
 	.AddSingleton<MongoDBConnectionManager>()
