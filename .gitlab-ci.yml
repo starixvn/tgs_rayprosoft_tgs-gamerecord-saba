@@ -104,7 +104,7 @@ deploy-prod:
     - kubernetes
     - deploy
   needs:
-    - deploy-staging
+    - push-docker-image
     - job: push-k8s-template
       artifacts: true
   only:
