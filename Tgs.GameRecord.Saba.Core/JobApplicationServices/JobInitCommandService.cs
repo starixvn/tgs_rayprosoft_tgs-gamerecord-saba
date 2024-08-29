@@ -13,6 +13,7 @@ namespace Tgs.GameRecord.Saba.Core.JobApplicationServices;
 internal class JobInitCommandService(
 	ILogger<JobInitCommandService> logger,
 	IOptions<GameRecordInfoOptions> options,
+	IOptions<AppSettings> appSettings,
 	IHangfireLockRepository hangfireLock,
 	IGameCommandClient client) : ICommandService<JobInitCommand>
 {
@@ -27,6 +28,11 @@ internal class JobInitCommandService(
 	{
 		try
 		{
+			if (!appSettings.Value.EnableSchedule)
+			{
+				return;
+			}
+
 			if (!await hangfireLock.LockingAsync(
 				application: typeof(JobInitCommandService).Name,
 				cancellationToken: cancellationToken)

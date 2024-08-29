@@ -90,6 +90,13 @@ builder.Services
 		configuration.GetSection("GameRecordInfo").Bind(options);
 	})
 	.Services
+	.AddOptions<AppSettings>()
+	.Configure((AppSettings options, IServiceProvider sp) =>
+	{
+		var configuration = sp.GetRequiredService<IConfiguration>();
+		configuration.GetSection("AppSettings").Bind(options);
+	})
+	.Services
 	.AddOptions<PolicySettingsOptions>()
 	.Configure((PolicySettingsOptions options, IServiceProvider sp) =>
 	{
