@@ -12,6 +12,7 @@ using Tgs.GameRecord.Saba.Repositories.Extensions;
 using Tgs.GameRecord.Saba.Repositories.Models;
 
 namespace Tgs.GameRecord.Saba.Repositories;
+
 internal class GameRecordScheduleRepository(
 	ILogger<GameRecordScheduleRepository> logger,
 	IOptions<GameRecordInfoOptions> gameRecordInfoOptions,
